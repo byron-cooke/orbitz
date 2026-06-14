@@ -551,24 +551,23 @@ footer{position:relative;z-index:1;border-top:1px solid rgba(184,106,255,.1);pad
 /* ── HERO SPACEMAN ── */
 .hero-inner{position:relative}
 .hero-spaceman{
-  position:absolute;right:-20px;bottom:-60px;z-index:3;
+  display:flex;
+  align-items:center;
+  justify-content:center;
   pointer-events:none;
 }
 .hero-spaceman-img{
-  width:340px;height:auto;
-  filter:drop-shadow(0 0 40px rgba(184,106,255,.55)) drop-shadow(0 0 80px rgba(184,106,255,.2));
+  width:100%;max-width:580px;height:auto;
+  filter:drop-shadow(0 0 50px rgba(184,106,255,.6)) drop-shadow(0 0 100px rgba(184,106,255,.25));
   animation:spacefloat 5s ease-in-out infinite;
 }
 @keyframes spacefloat{
   0%,100%{transform:translateY(0) rotate(-2deg)}
-  50%{transform:translateY(-16px) rotate(2deg)}
+  50%{transform:translateY(-20px) rotate(2deg)}
 }
-/* Push delivery panel up on desktop so spaceman doesn't overlap */
 @media(min-width:901px){
-  .hero-inner{grid-template-columns:1fr 1.05fr;align-items:center}
-  .hero-spaceman{right:-40px;bottom:-80px;width:360px}
-  .hero-spaceman-img{width:360px}
-  .delivery-panel{position:relative;z-index:2}
+  .hero-inner{grid-template-columns:1fr 1fr;align-items:center;gap:0}
+  .hero-spaceman-img{max-width:620px}
 }
 
 /* ── NAV LOGO (wordmark) ── */
@@ -669,11 +668,8 @@ footer{position:relative;z-index:1;border-top:1px solid rgba(184,106,255,.1);pad
 
 /* Responsive */
 @media(max-width:900px){
-  .hero-spaceman{
-    position:relative;right:auto;bottom:auto;
-    display:flex;justify-content:center;order:-1;
-  }
-  .hero-spaceman-img{width:220px}
+  .hero-spaceman{display:flex;justify-content:center;order:-1}
+  .hero-spaceman-img{max-width:340px}
   .pwa-body{grid-template-columns:1fr;gap:20px}
   .pwa-phone-wrap{flex-direction:row;justify-content:center;align-items:flex-start}
 }
