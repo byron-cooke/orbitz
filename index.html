@@ -12,6 +12,23 @@
 <body>
 
 <!-- Star canvas -->
+
+<!-- ── AGE GATE ── -->
+<div id="age-gate">
+  <div class="ag-card">
+    <div class="ag-glow"></div>
+    <img src="logo_wordmark.png" alt="Orbitz" class="ag-logo" />
+    <img src="spaceman.png" alt="Orbitz Spaceman" class="ag-spaceman" />
+    <div class="ag-title">Welcome to Orbitz</div>
+    <p class="ag-copy">Orbitz provides access to cannabis-related products and information intended only for adults 21 years of age or older.</p>
+    <div class="ag-buttons">
+      <button class="ag-btn-primary" onclick="ageGateEnter()">I Am 21+</button>
+      <button class="ag-btn-secondary" onclick="window.location.href='https://www.google.com'">Exit Site</button>
+    </div>
+    <p class="ag-legal">By entering, you confirm you are 21 years of age or older and agree to our Terms of Service.</p>
+  </div>
+</div>
+
 <div class="starfield"><canvas id="stars"></canvas></div>
 
 <!-- ── NAV ── -->
@@ -655,6 +672,14 @@
           <input class="footer-email-input" type="email" placeholder="Enter your email" />
           <button class="footer-email-btn">→</button>
         </div>
+      </div>
+    </div>
+    <div class="footer-compliance">
+      <p class="footer-compliance-text">Adults 21+ only. Government-issued identification is required upon delivery. Delivery availability varies by jurisdiction and local regulations. Please consume responsibly.</p>
+      <div class="footer-compliance-links">
+        <a href="compliance.html">Compliance</a>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
       </div>
     </div>
     <div class="footer-bottom">

@@ -1,3 +1,20 @@
+
+// ── AGE GATE ──
+(function(){
+  const gate = document.getElementById('age-gate');
+  if(!gate) return;
+  if(localStorage.getItem('orbitz_age_verified')){
+    gate.style.display='none';
+  }
+})();
+
+function ageGateEnter(){
+  localStorage.setItem('orbitz_age_verified','1');
+  const gate = document.getElementById('age-gate');
+  gate.classList.add('hidden');
+  setTimeout(()=>gate.style.display='none', 500);
+}
+
 // ── STARS ──
 (function(){
   const c=document.getElementById('stars');

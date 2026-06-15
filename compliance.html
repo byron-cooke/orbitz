@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Compliance — ORBITZ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;800&family=Inter:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- Star canvas -->
+<div class="starfield"><canvas id="stars"></canvas></div>
+
+<!-- ── AGE GATE ── -->
+<div id="age-gate">
+  <div class="ag-card">
+    <div class="ag-glow"></div>
+    <img src="logo_wordmark.png" alt="Orbitz" class="ag-logo" />
+    <img src="spaceman.png" alt="Orbitz Spaceman" class="ag-spaceman" />
+    <div class="ag-title">Welcome to Orbitz</div>
+    <p class="ag-copy">Orbitz provides access to cannabis-related products and information intended only for adults 21 years of age or older.</p>
+    <div class="ag-buttons">
+      <button class="ag-btn-primary" onclick="ageGateEnter()">I Am 21+</button>
+      <button class="ag-btn-secondary" onclick="window.location.href='https://www.google.com'">Exit Site</button>
+    </div>
+    <p class="ag-legal">By entering, you confirm you are 21 years of age or older and agree to our Terms of Service.</p>
+  </div>
+</div>
+
+<!-- ── NAV ── -->
+<nav id="nav">
+  <div class="nav-brand">
+    <img src="logo_wordmark.png" alt="Orbitz logo" />
+    <span class="nav-wordmark">ORBITZ</span>
+  </div>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="index.html#products">Shop</a></li>
+    <li><a href="index.html#how">How It Works</a></li>
+    <li><a href="index.html#areas">Delivery Areas</a></li>
+    <li><a href="index.html#rewards">Rewards</a></li>
+    <li><a href="index.html#about">About</a></li>
+  </ul>
+  <div class="nav-right">
+    <button class="btn-signin">Sign In</button>
+    <a href="index.html#products" class="btn-nav-cta">Get Started</a>
+    <div class="nav-cart">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+    </div>
+    <button class="hamburger" id="hamburger" onclick="toggleNav()">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ── COMPLIANCE HERO ── -->
+<section class="compliance-hero">
+  <div class="compliance-hero-glow"></div>
+  <div style="position:relative;z-index:1">
+    <div class="compliance-hero-eyebrow">Legal &amp; Compliance</div>
+    <h1 class="compliance-hero-title">Compliance Center</h1>
+    <p class="compliance-hero-sub">Orbitz is committed to operating safely, responsibly, and in full accordance with applicable cannabis regulations.</p>
+  </div>
+</section>
+
+<!-- ── COMPLIANCE CARDS ── -->
+<div class="compliance-section">
+  <a href="index.html" class="compliance-back">← Back to Orbitz</a>
+
+  <div class="compliance-grid">
+
+    <div class="compliance-card rv">
+      <div class="compliance-card-icon">🪪</div>
+      <div class="compliance-card-title">Age Requirements</div>
+      <p class="compliance-card-body">Customers must be 21 years of age or older to purchase products through Orbitz. Age verification is required before any order is fulfilled.</p>
+    </div>
+
+    <div class="compliance-card rv rv-d1">
+      <div class="compliance-card-icon">🔍</div>
+      <div class="compliance-card-title">Identification Verification</div>
+      <p class="compliance-card-body">Valid government-issued photo identification may be required before fulfillment or delivery. Acceptable forms include a state-issued driver's license, passport, or military ID.</p>
+    </div>
+
+    <div class="compliance-card rv rv-d2">
+      <div class="compliance-card-icon">📍</div>
+      <div class="compliance-card-title">Delivery Restrictions</div>
+      <p class="compliance-card-body">Delivery availability depends on local laws and approved service areas. Orbitz currently serves select jurisdictions in the Washington DC metro area. Availability may change based on regulatory updates.</p>
+    </div>
+
+    <div class="compliance-card rv rv-d3">
+      <div class="compliance-card-icon">🧠</div>
+      <div class="compliance-card-title">Responsible Consumption</div>
+      <p class="compliance-card-body">Do not drive or operate machinery while impaired. Cannabis affects individuals differently. Start low, go slow, and consume in a safe environment. Keep all products away from children and pets.</p>
+    </div>
+
+    <div class="compliance-card rv">
+      <div class="compliance-card-icon">⚖️</div>
+      <div class="compliance-card-title">Possession Limits</div>
+      <p class="compliance-card-body">Customers are responsible for understanding and complying with applicable local possession limits. Possession laws vary by jurisdiction and it is the customer's responsibility to remain within legal limits.</p>
+    </div>
+
+    <div class="compliance-card rv rv-d1">
+      <div class="compliance-card-icon">🚫</div>
+      <div class="compliance-card-title">Interstate Transportation</div>
+      <p class="compliance-card-body">Products purchased through Orbitz may not be transported across state lines. Cannabis remains a federally controlled substance. Transporting cannabis across state lines is a federal offense regardless of destination state law.</p>
+    </div>
+
+    <div class="compliance-card rv rv-d2">
+      <div class="compliance-card-icon">🩺</div>
+      <div class="compliance-card-title">Medical Disclaimer</div>
+      <p class="compliance-card-body">Products and information provided through Orbitz are not intended to diagnose, treat, cure, or prevent any disease or medical condition. Consult a licensed healthcare professional before use if you have medical concerns.</p>
+    </div>
+
+    <div class="compliance-card rv rv-d3">
+      <div class="compliance-card-icon">📋</div>
+      <div class="compliance-card-title">Regulatory Changes</div>
+      <p class="compliance-card-body">Cannabis laws vary by jurisdiction and may change over time. Orbitz makes every effort to remain current with applicable regulations. Customers should stay informed about laws in their local area.</p>
+    </div>
+
+  </div>
+</div>
+
+<!-- ── FOOTER ── -->
+<footer id="about">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand-logo">
+          <img src="logo_full.png" alt="Orbitz" />
+          <span class="footer-wordmark">ORBITZ</span>
+        </div>
+        <p class="footer-desc">Premium cannabis delivered across the DMV. Out of this world, every time.</p>
+        <div class="footer-socials">
+          <div class="social-btn">𝕏</div>
+          <div class="social-btn">📸</div>
+          <div class="social-btn">🎵</div>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Shop</div>
+        <ul class="footer-links">
+          <li><a href="index.html#products">All Products</a></li>
+          <li><a href="#">Flower</a></li>
+          <li><a href="#">Edibles</a></li>
+          <li><a href="#">Concentrates</a></li>
+          <li><a href="#">Vapes</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Company</div>
+        <ul class="footer-links">
+          <li><a href="index.html#how">How It Works</a></li>
+          <li><a href="index.html#areas">Delivery Areas</a></li>
+          <li><a href="index.html#rewards">Rewards</a></li>
+          <li><a href="#">About Us</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Support</div>
+        <ul class="footer-links">
+          <li><a href="#">Help Center</a></li>
+          <li><a href="#">Contact Us</a></li>
+          <li><a href="#">FAQ</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms of Service</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-compliance">
+      <p class="footer-compliance-text">Adults 21+ only. Government-issued identification is required upon delivery. Delivery availability varies by jurisdiction and local regulations. Please consume responsibly.</p>
+      <div class="footer-compliance-links">
+        <a href="compliance.html">Compliance</a>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-legal">© 2024 Orbitz. All rights reserved. Licensed &amp; Compliant.</span>
+      <span class="footer-age-badge">21+ Only · Valid ID Required</span>
+    </div>
+  </div>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>
