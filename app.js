@@ -97,3 +97,95 @@ const ro=new IntersectionObserver(entries=>{
   entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')});
 },{threshold:.1});
 document.querySelectorAll('.rv').forEach(el=>ro.observe(el));
+
+// ── AUTH (shared with /account via localStorage) ──
+const ORBITZ_LS_AUTH='orbitz_acct_authed';
+const ORBITZ_LS_ROUTE='orbitz_acct_route';
+let welcomeTimer=null;
+
+const orbitzAuth={
+  authed(){return localStorage.getItem(ORBITZ_LS_AUTH)==='1';},
+  render(){
+    const a=this.authed();
+    const out=document.getElementById('navAuthOut');
+    const inn=document.getElementById('navAuthIn');
+    if(out) out.hidden=a;
+    if(inn) inn.hidden=!a;
+    if(!a) this.closeMenu();
+  },
+  // ----- modal -----
+  open(mode){
+    const m=document.getElementById('authModal');
+    m.hidden=false;
+    this.setTab(mode||'signin');
+    document.body.style.overflow='hidden';
+  },
+  close(){
+    const m=document.getElementById('authModal');
+    if(m) m.hidden=true;
+    document.body.style.overflow='';
+  },
+  setTab(mode){
+    const reg=mode==='register';
+    document.getElementById('segSignin').classList.toggle('active',!reg);
+    document.getElementById('segRegister').classList.toggle('active',reg);
+    document.getElementById('nameField').hidden=!reg;
+    document.getElementById('authTitle').textContent=reg?'Create your account':'Welcome back, explorer';
+    document.getElementById('authSub').textContent=reg
+      ?'Join ORBITZ for same-day delivery, live tracking, and rewards.'
+      :'Sign in to track deliveries, reorder favorites, and bank your rewards.';
+    document.getElementById('authSubmit').textContent=reg?'Create account →':'Sign in →';
+  },
+  submit(e){
+    e.preventDefault();
+    localStorage.setItem(ORBITZ_LS_AUTH,'1');
+    this.close();
+    this.render();
+    this.welcome();
+  },
+  welcome(){
+    const t=document.getElementById('welcomeToast');
+    if(!t) return;
+    t.hidden=false;
+    requestAnimationFrame(()=>t.classList.add('show'));
+    if(welcomeTimer) clearTimeout(welcomeTimer);
+    welcomeTimer=setTimeout(()=>{
+      t.classList.remove('show');
+      setTimeout(()=>{t.hidden=true;},400);
+    },4200);
+  },
+  // ----- account dropdown -----
+  toggleMenu(){
+    const dd=document.getElementById('acctDropdown');
+    const btn=document.getElementById('acctBtn');
+    const willOpen=dd.hidden;
+    dd.hidden=!willOpen;
+    btn.setAttribute('aria-expanded',willOpen?'true':'false');
+  },
+  closeMenu(){
+    const dd=document.getElementById('acctDropdown');
+    const btn=document.getElementById('acctBtn');
+    if(dd) dd.hidden=true;
+    if(btn) btn.setAttribute('aria-expanded','false');
+  },
+  goAccount(screen){
+    try{localStorage.setItem(ORBITZ_LS_ROUTE,JSON.stringify([{screen,params:{}}]));}catch(e){}
+    window.location.href='account/index.html';
+  },
+  signOut(){
+    localStorage.setItem(ORBITZ_LS_AUTH,'0');
+    this.closeMenu();
+    this.render();
+  },
+};
+window.orbitzAuth=orbitzAuth;
+orbitzAuth.render();
+
+// close dropdown on outside click; close modal on Escape
+document.addEventListener('click',(e)=>{
+  const menu=document.querySelector('.acct-menu');
+  if(menu && !menu.contains(e.target)) orbitzAuth.closeMenu();
+});
+document.addEventListener('keydown',(e)=>{
+  if(e.key==='Escape'){orbitzAuth.close();orbitzAuth.closeMenu();}
+});
