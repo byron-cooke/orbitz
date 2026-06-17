@@ -156,7 +156,7 @@ function deskMeta(route) {
   if (s === "rewards") return ["Rewards", "ORBITZ Rewards", "Points, tiers, and redemptions"];
   if (s === "favorites") return ["Saved", "Favorites", "Your go-to products, one tap away"];
   if (s === "profile") return ["Account", "Profile & Address", "Manage your contact and delivery details"];
-  if (s === "pay")     return ["Account", "Payments", "Preferred methods and payment proof"];
+  if (s === "pay")     return ["Account", "Payments", "Methods, instructions, and history"];
   if (s === "idverify")return ["Account", "ID Verification", "Your 21+ verification status"];
   if (s === "support") return ["Help", "Support", "We're here to help, on any orbit"];
   return ["", "", ""];
