@@ -2,6 +2,8 @@
 
 // ════════ TOP NAV ════════
 function ShopNav({ search, setSearch, cartCount, onOpenCart, onOpenMobileSearch }) {
+  const authed = typeof orbitzAuth !== "undefined" && orbitzAuth.authed();
+
   return (
     <nav className="snav">
       <a className="snav-brand" href="../index.html" title="Back to Orbitz">
@@ -19,8 +21,10 @@ function ShopNav({ search, setSearch, cartCount, onOpenCart, onOpenMobileSearch 
       <div className="snav-right">
         <button className="snav-iconbtn snav-mobsearch" onClick={onOpenMobileSearch} aria-label="Search"><Icon name="search" size={19} /></button>
         <a className="snav-acct" href="../account/index.html" title="My account">
-          <span className="snav-av">KM</span>
-          <span className="acct-label">Account</span>
+          <span className="snav-av">
+            {authed ? "KM" : <Icon name="user" size={15} stroke={2} />}
+          </span>
+          <span className="acct-label">{authed ? "Account" : "Sign in"}</span>
         </a>
         <button className="snav-iconbtn" onClick={onOpenCart} aria-label="Open cart">
           <Icon name="bag" size={19} />

@@ -24,6 +24,7 @@ const ICON_PATHS = {
   bolt:     <path d="M13 2L3 14h7l-1 8 10-12h-7z" />,
   gift:     <><rect x="3" y="8" width="18" height="4" rx="1" /><path d="M5 12v9h14v-9M12 8v13" /><path d="M12 8S10 3 7.5 4.5 9 8 12 8zM12 8s2-5 4.5-3.5S15 8 12 8z" /></>,
   info:     <><circle cx="12" cy="12" r="9" /><path d="M12 11v5M12 8h.01" /></>,
+  user:     <><circle cx="12" cy="8" r="4" /><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" /></>,
 };
 
 const Icon = ({ name, size = 20, stroke = 2, fill = "none", style }) => {
@@ -62,9 +63,6 @@ const StrainBadge = ({ strain, inline = false }) => {
 };
 
 // ───────────────────────── Product shot placeholder ─────────────────────────
-// A premium, labeled stand-in for real product photography. Striped field +
-// tonal glow keyed to the product, with a mono "PRODUCT SHOT" caption so it
-// reads as a deliberate drop-zone for real imagery later — never emoji art.
 const CAT_LABEL = {
   flower: "Flower", preroll: "Pre-Roll", edible: "Edible", vape: "Vape",
   concentrate: "Concentrate", accessory: "Accessory",
