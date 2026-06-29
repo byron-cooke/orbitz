@@ -2,7 +2,13 @@
 
 // ════════ TOP NAV ════════
 function ShopNav({ search, setSearch, cartCount, onOpenCart, onOpenMobileSearch }) {
-  const authed = typeof orbitzAuth !== "undefined" && orbitzAuth.authed();
+  const authed = localStorage.getItem("orbitz_acct_authed") === "1";
+
+  const handleSignIn = (e) => {
+    e.preventDefault();
+    localStorage.setItem("orbitz_return_to_shop", "1");
+    window.location.href = "../account/index.html";
+  };
 
   return (
     <nav className="snav">
@@ -20,12 +26,17 @@ function ShopNav({ search, setSearch, cartCount, onOpenCart, onOpenMobileSearch 
 
       <div className="snav-right">
         <button className="snav-iconbtn snav-mobsearch" onClick={onOpenMobileSearch} aria-label="Search"><Icon name="search" size={19} /></button>
-        <a className="snav-acct" href="../account/index.html" title="My account">
-          <span className="snav-av">
-            {authed ? "KM" : <Icon name="user" size={15} stroke={2} />}
-          </span>
-          <span className="acct-label">{authed ? "Account" : "Sign in"}</span>
-        </a>
+        {authed ? (
+          <a className="snav-acct" href="../account/index.html" title="My account">
+            <span className="snav-av">KM</span>
+            <span className="acct-label">Account</span>
+          </a>
+        ) : (
+          <a className="snav-acct" href="../account/index.html" title="Sign in" onClick={handleSignIn}>
+            <span className="snav-av"><Icon name="user" size={15} stroke={2} /></span>
+            <span className="acct-label">Sign in</span>
+          </a>
+        )}
         <button className="snav-iconbtn" onClick={onOpenCart} aria-label="Open cart">
           <Icon name="bag" size={19} />
           {cartCount > 0 && <span className="snav-cartcount">{cartCount}</span>}
