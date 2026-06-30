@@ -54,14 +54,17 @@ const CO_WINDOWS = [
 ];
 
 // ───────── payment methods ─────────
+const CO_CASHAPP_HANDLE = "$OrbitzDMV";
+const CO_VENMO_HANDLE   = "@Orbitz-Delivery";
 const CO_PAY_METHODS = [
-  { id: "card",   label: "Credit / Debit Card", sub: "Visa, Mastercard, Amex", icon: "card" },
-  { id: "apple",  label: "Apple Pay",           sub: "Touch / Face ID",        icon: "apple" },
-  { id: "google", label: "Google Pay",          sub: "Pay with Google",        icon: "google" },
-  { id: "cash",   label: "Cash on Delivery",    sub: "Exact change appreciated",icon: "cash" },
-  { id: "crypto", label: "Crypto · USDC",       sub: "Pay from your wallet",    icon: "crypto" },
+  { id: "cash",    label: "Cash on Delivery", sub: "Exact change appreciated",        icon: "cash" },
+  { id: "cashapp", label: "Cash App",         sub: "Pay " + CO_CASHAPP_HANDLE + " + upload proof", icon: "cashapp" },
+  { id: "venmo",   label: "Venmo",            sub: "Pay " + CO_VENMO_HANDLE + " + upload proof",   icon: "venmo" },
+  { id: "crypto",  label: "Crypto · USDC",    sub: "Pay from your wallet",            icon: "crypto" },
 ];
 const payMethodById = (id) => CO_PAY_METHODS.find(m => m.id === id);
+const payNeedsProof = (id) => id === "cashapp" || id === "venmo";
+const payHandle = (id) => id === "cashapp" ? CO_CASHAPP_HANDLE : id === "venmo" ? CO_VENMO_HANDLE : null;
 const CO_CRYPTO_WALLET = "0x9c4F…b1Ee21ORBZ"; // mock receiving address
 
 // ───────── promo codes ─────────
@@ -112,8 +115,8 @@ function defaultCheckout() {
     },
     verification: { idFront: false, idBack: false, selfie: false, acknowledged: false },
     payment: {
-      method: "card",
-      card: { number: "", exp: "", cvv: "", zip: "", save: true },
+      method: "cash",
+      proof: false,            // screenshot proof uploaded (Cash App / Venmo)
     },
     promo: "",                 // applied code (uppercased) or ""
     rewardsApplied: false,
@@ -125,12 +128,15 @@ function loadCheckout() {
   const base = defaultCheckout();
   if (!saved) return base;
   // shallow-merge to tolerate older shapes
-  return {
+  const merged = {
     ...base, ...saved,
     delivery: { ...base.delivery, ...(saved.delivery || {}) },
     verification: { ...base.verification, ...(saved.verification || {}) },
-    payment: { ...base.payment, ...(saved.payment || {}), card: { ...base.payment.card, ...((saved.payment || {}).card || {}) } },
+    payment: { ...base.payment, ...(saved.payment || {}) },
   };
+  // migrate retired methods (card / apple / google) → default
+  if (!payMethodById(merged.payment.method)) merged.payment = { ...base.payment };
+  return merged;
 }
 
 // ═══════════════════ money math ═══════════════════
@@ -205,7 +211,8 @@ function buildOrder(cart, co) {
       timing: addr.timing, window: addr.timing === "scheduled" ? (CO_WINDOWS.find(w => w.id === addr.window)?.label) : "ASAP",
     },
     payment: { method: co.payment.method, label: payMethodById(co.payment.method)?.label,
-      last4: co.payment.method === "card" && co.payment.card.number ? co.payment.card.number.replace(/\s/g, "").slice(-4) : null },
+      proofRequired: payNeedsProof(co.payment.method),
+      proofProvided: payNeedsProof(co.payment.method) ? !!co.payment.proof : false },
     customer: { name: CUSTOMER.name, phone: CUSTOMER.phone, email: CUSTOMER.email },
     driver: CO_DRIVER,
   };
@@ -226,7 +233,8 @@ function placeOrder(cart, co) {
 Object.assign(window, {
   CO_LS_CART, CO_LS_CHECKOUT, CO_LS_ORDER, CO_LS_ORDERS, CO_LS_AUTH,
   CO_TAX_RATE, CO_FREE_SHIP_OVER, CO_DELIVERY_FEE, CO_PRIORITY_FEE, CO_POINTS_VALUE, CO_MAX_REWARD_PTS,
-  CUSTOMER, CO_ZONES, zoneById, CO_WINDOWS, CO_PAY_METHODS, payMethodById, CO_CRYPTO_WALLET, CO_PROMOS, CO_DRIVER,
+  CUSTOMER, CO_ZONES, zoneById, CO_WINDOWS, CO_PAY_METHODS, payMethodById, payNeedsProof, payHandle,
+  CO_CASHAPP_HANDLE, CO_VENMO_HANDLE, CO_CRYPTO_WALLET, CO_PROMOS, CO_DRIVER,
   coLoad, coSave, loadCart, cartLines, defaultCheckout, loadCheckout, computeTotals, etaLabel,
   genOrderNumber, buildOrder, placeOrder,
 });

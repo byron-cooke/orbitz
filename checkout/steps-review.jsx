@@ -14,7 +14,7 @@ function ReviewSection({ icon, title, stepIndex, goStep, children }) {
 function StepReview({ cart, co, setCheckout, totals, goStep, back, onPlace, placing }) {
   const d = co.delivery;
   const pm = payMethodById(co.payment.method);
-  const last4 = co.payment.method === "card" && co.payment.card.number ? co.payment.card.number.replace(/\s/g, "").slice(-4) : null;
+  const showProof = payNeedsProof(co.payment.method);
   const addrStr = `${d.line1}${d.line2 ? ", " + d.line2 : ""}, ${d.city} ${d.state} ${d.zip}`;
 
   const placeBtn = (full) => (
@@ -76,7 +76,14 @@ function StepReview({ cart, co, setCheckout, totals, goStep, back, onPlace, plac
           </ReviewSection>
 
           <ReviewSection icon={pm.icon} title="Payment" stepIndex={3} goStep={goStep}>
-            <span className="rev-pill"><span className="em"><Icon name={pm.icon} size={18} style={{ color: "var(--p)" }} /></span>{pm.label}{last4 ? ` ·••••  ${last4}` : ""}</span>
+            <div style={{ display: "flex", flexDirection: "column", gap: 8, alignItems: "flex-start" }}>
+              <span className="rev-pill"><span className="em"><Icon name={pm.icon} size={18} style={{ color: "var(--p)" }} /></span>{pm.label}</span>
+              {showProof && (
+                <span className="rev-pill" style={{ color: "var(--grn)", borderColor: "rgba(74,222,128,.26)", background: "rgba(74,222,128,.06)" }}>
+                  <Icon name="check" size={15} stroke={2.8} />Payment proof uploaded
+                </span>
+              )}
+            </div>
           </ReviewSection>
 
           <ReviewSection icon="sparkle" title="Order total" goStep={goStep}>
