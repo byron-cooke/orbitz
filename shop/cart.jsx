@@ -80,10 +80,10 @@ function CartDrawer({ open, onClose, cart, setQty, remove, onBrowse }) {
                 <div className="cart-trow grand"><span>Estimated total</span><b>{fmtMoney(subtotal)}</b></div>
               </div>
 
-              <button className="cart-checkout" disabled aria-disabled="true">
+              <a href="../checkout/index.html" className="cart-checkout" style={{ textDecoration: "none" }}>
                 <Icon name="lock" size={17} />Proceed to Checkout
-              </button>
-              <div className="cart-checkout-note"><Icon name="rocket" size={13} style={{ color: "var(--p)" }} />Checkout launches soon — payments are coming in a later phase.</div>
+              </a>
+              <div className="cart-checkout-note"><Icon name="rocket" size={13} style={{ color: "var(--p)" }} />Secure 21+ checkout · ID verified at delivery</div>
             </div>
           </>
         )}
